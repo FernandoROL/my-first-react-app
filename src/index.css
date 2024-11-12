@@ -3,3 +3,15 @@ body {
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+#error-alert {
+    color: rgb(255, 0, 0);
+}
+
+#alert-alert {
+    color: yellow;
+}
+
+#success-alert {
+    color: limegreen;
+}
