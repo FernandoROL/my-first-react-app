@@ -1,31 +1,59 @@
 import React, { Component } from "react";
-import Feed from "./components/Feed";
 
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      feed: [
-        {id: 1, user: 'Fernando', likes: 20, comments: 2},
-        {id: 2, user: 'Lucas', likes: 69, comments: 24},
-        {id: 3, user: 'Mateus', likes: 200, comments: 21},
-        {id: 4, user: 'Joelma', likes: 1, comments: 1},
-      ]
+      email: 'email@example.com',
+      password: 'pass',
+      sex: 'male'
     }
+
+    this.changeEmail = this.changeEmail.bind(this);
+    this.changePassword = this.changePassword.bind(this);
+    this.changeSex = this.changeSex.bind(this);
+  }
+
+  changeEmail(e){
+    let inputValue = e.target.value;
+    this.setState({email: inputValue});
+  }
+
+  changePassword(e){
+    let inputValue = e.target.value;
+    this.setState({password: inputValue});
+  }
+
+  changeSex(e){
+    let inputValue = e.target.value;
+    this.setState({sex: inputValue});
   }
 
   render() {
     return (
       <div>
-        {
-          this.state.feed.map((item) => {
-            return(
-              <Feed key={item.id} user={item.user}
-               likes={item.likes} comments={item.comments}></Feed>
-            );
-          })
-        }
+        <h3>Login</h3>
+        Email: <br/>
+        <input type='email' name='email' value={this.state.email}
+          onChange={this.changeEmail} />
+        <br/><br/>
+        Senha: <br/>
+        <input type='password' name='password' value={this.state.password} 
+          onChange={this.changePassword} />
+        <br/><br/>
+        gender: <br/>
+        <select name="sex" value={this.state.sex} onChange={this.changeSex}>
+          <option value={'male'}>Male</option>
+          <option value={'female'}>Female</option>
+        </select>
+        <br/><br/>
+
+        <div>
+          <h3>{this.state.email}</h3>
+          <h3>{this.state.password}</h3>
+          <h3>{this.state.sex}</h3>
+        </div>
       </div>
     );
   }
