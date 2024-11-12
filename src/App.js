@@ -1,42 +1,41 @@
-import React from 'react';
+import React, { Component } from "react";
 
-const Team = (props) => {
-  return (
-    <div>
-      <Sobre name={props.name} role={props.role} age={props.age}></Sobre>
-      <Social fb={props.fb} in={props.in} ig={props.ig}/>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'Fernando',
+      counter: 0
+    };
+
+    this.aumentar = this.aumentar.bind(this);
+    this.diminuir = this.diminuir.bind(this);
+  }
+
+  aumentar(){
+    let state = this.state;
+    state.counter += 1;
+    this.setState(state);
+  }
+
+  diminuir(){
+    let state = this.state;
+    state.counter -= 1;
+    this.setState(state);
+  }
+
+  render(){
+    return(
+      <div>
+        <h1>Counter Teste</h1>
+        <h3>
+          <button onClick={this.aumentar}>+</button>
+          {this.state.counter}
+          <button onClick={this.diminuir}>-</button>
+        </h3>
+      </div>
+    );
+  }
 }
 
-const Sobre = (props) => {
-  return (
-    <div>
-      <h2>Hello I'm {props.name}</h2>
-      <h3>Role: {props.role}</h3>
-      <h3>Age: {props.age}</h3>
-    </div>
-  );
-}
-
-const Social = (props) => {
-  return (
-    <div>
-      <a href={props.fb}>Facebook</a>
-      <br/>
-      <a href={props.in}>Linkedin</a>
-      <br/>
-      <a href={props.ig}>Instagram</a>
-    </div>
-  )
-}
-
-export default function App() {
-  return (
-    <div>
-      <h1>Get to know out team:</h1>
-      <Team name="Fernando" role="Web Developer" age="20" fb='https://facebook.com' in='https://linkedin.com' ig='https://instagram.com'></Team>
-      <Team name="Isabella" role="CEO" age="35" fb='https://facebook.com' in='https://linkedin.com' ig='https://instagram.com'></Team>
-    </div>
-  )
-}
+export default App;
