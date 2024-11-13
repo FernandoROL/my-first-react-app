@@ -15,3 +15,15 @@ body {
 #success-alert {
     color: limegreen;
 }
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+form div input,
+form div select{
+    width: 70%;
+    margin-top: .5rem;
+    height: 1.5rem;
+}

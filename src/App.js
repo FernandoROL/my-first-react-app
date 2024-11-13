@@ -5,19 +5,29 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      email: '',
-      password: ''
+      form: {
+        name: 'teste',
+        email: '123123@example.com',
+        password: '3333',
+        gender: ''
+      },
     }
     this.register = this.register.bind(this);
+    this.formChange = this.formChange.bind(this);
   }
 
-  register(event){
-    const {name, email, password} = this.state;
-    name !== '' && email !== '' && password !== '' ?
-    alert(`All fields filled in! \nSelling your information to the chinese mafia... \n\nName: ${name} \nEmail: ${email} \nPassword: ${password}`) :
-    this.setState({error: 'Looks like you missed some fieds...'});
+  register(event) {
+    const { name, email, password, gender } = this.state.form;
+    name !== '' && email !== '' && password !== '' && gender != '' ?
+      alert(`All fields filled in! \nSelling your information to the chinese mafia... \n\nName: ${name} \nEmail: ${email} \nPassword: ${password} \nGender: ${gender}`) :
+      this.setState({ error: 'Looks like you missed some fieds...' });
     event.preventDefault();
+  }
+
+  formChange(e){
+    let form = this.state.form;
+    form[e.target.name] = e.target.value;
+    this.setState({form: form});
   }
 
 
@@ -27,15 +37,35 @@ class App extends Component {
         <h1>New user</h1>
         {this.state.error && <p id='error-alert'>{this.state.error}</p>}
         <form onSubmit={this.register}>
-          <label>Name:</label>
-          <input type="text" value={this.state.name} onChange={(e) => this.setState({name: e.target.value})}></input>
-          <br/><br/>
-          <label>Email:</label>
-          <input type="email" value={this.state.email} onChange={(e) => this.setState({email: e.target.value})}></input>
-          <br/><br/>
-          <label>Password:</label>
-          <input type="password" value={this.state.password} onChange={(e) => this.setState({password: e.target.value})}></input>
-          <br/><br/>
+          <div>
+            <label>Name:</label>
+            <input type="text" name="name" value={this.state.form.name}
+              onChange={this.formChange}></input>
+          </div>
+          <br /><br />
+          <div>
+            <label>Email:</label>
+            <input type="email" name="email" value={this.state.form.email} 
+              onChange={this.formChange}></input>
+          </div>
+          <br /><br />
+          <div>
+            <label>Password:</label>
+            <input type="password" name="password" value={this.state.form.password} 
+              onChange={this.formChange}></input>
+          </div>
+          <br /><br />
+          <div>
+            <label>Gender:</label>
+            <select name="gender" value={this.state.form.gender} 
+              onChange={this.formChange}>
+              <option value={''}>Select Gender</option>
+              <option value={'male'}>Male</option>
+              <option value={'female'}>Female</option>
+              <option value={'testes'}>Don't specify</option>
+            </select>
+          </div>
+          <br /><br />
           <button type="submit">Submit</button>
         </form>
       </div>
