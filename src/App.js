@@ -1,44 +1,56 @@
 import React, { Component } from "react";
-import { fortunes } from "./assets/fortunes";
 
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      phraseText: 'Click the cookie...'
-    };
-    this.phrase = fortunes;
-
-    this.biscuitFortune = this.biscuitFortune.bind(this);
+      number: 0,
+      button: 'START'
+    }
+    this.timer = null;
+    this.start = this.start.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
-  biscuitFortune(){
+  start() {
     let state = this.state;
-    let randomNumber = Math.floor(Math.random() * this.phrase.length);
-    state.phraseText = this.phrase[randomNumber];
+
+    if (this.timer !== null) {
+      clearInterval(this.timer);
+      this.timer = null;
+      state.button = "START";
+    } else {
+        this.timer = setInterval(() => {
+        let state = this.state;
+        state.number += 0.01;
+        this.setState(state);
+      }, 10);
+      state.button = "PAUSE"
+    }
+
+    this.setState(state);
+  }
+
+  reset() {
+    if (this.timer !== null) {
+      clearInterval(this.timer);
+      this.timer = null;
+    } 
+    let state = this.state;
+    state.number = 0;
+    state.button = "START";
     this.setState(state);
   }
 
   render() {
     return (
-      <div className="main">
-        <Botao btnAction={this.biscuitFortune} name='Give me fortune'/>
-        <h3 className="phrase">{`" ${this.state.phraseText} "`}</h3>
-      </div>
-    );
-  }
-}
-
-class Botao extends Component {
-  render() {
-    return (
-      <div>
-        <div className="container">
-          <img id="biscuit" src={require("./assets/biscoito.png")} />
-          <div className="middle">
-            <button id="fortune-button" onClick={this.props.btnAction}>{this.props.name}</button>
-          </div>
+      <div className="container">
+        <img className="cronometro" src={require('./assets/cronometro.png')}></img>
+        <a className="timer">{this.state.number.toFixed(2)}</a>
+        <div className="areaBtn">
+          <a className="acoes" onClick={this.start}>{this.state.button}</a>
+          <a className="acoes" onClick={this.reset}>RESET</a>
         </div>
       </div>
     );
